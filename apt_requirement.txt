@@ -1,0 +1,11 @@
+sudo apt install -y libatk1.0-0
+sudo apt-get install -y libgbm-dev
+sudo apt-get install libatk-bridge2.0-0
+sudo apt-get install libcups2
+sudo apt-get install libxkbcommon0
+sudo apt-get install libxcomposite1 
+sudo apt-get install libxdamage1
+sudo apt-get install libxfixes3
+sudo apt-get install libxrandr2
+sudo apt-get install libpango-1.0-0
+sudo apt-get install libcairo2

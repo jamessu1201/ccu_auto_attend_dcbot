@@ -20,8 +20,7 @@ def solve(key,solver,driver):
       version="v2",
     )
   except Exception as e:
-    print(e)
-    raise Exception
+    return "fail"
     
   return result
 
@@ -30,8 +29,13 @@ def attend_main(course_name,attend_pwd):
 
 	options = Options()
 	options.add_argument("--headless")
+	# options.add_argument("--disable-dev-shm-usage"); # overcome limited resource problems
+	options.add_argument('--window-size=1920,1080')
+	# options.add_argument("--no-sandbox")
+	# options.add_argument("--disable-gpu")
 	options.add_experimental_option("excludeSwitches", ["enable-automation"])
 	options.add_experimental_option('useAutomationExtension', False)
+	
 	options.add_experimental_option("prefs", {"profile.password_manager_enabled": False, "credentials_enable_service": False})
 	if(platform.system()=='Windows'):
 		options.binary_location = "chrome-win64/chrome.exe"
@@ -94,6 +98,9 @@ def attend_main(course_name,attend_pwd):
 
 	result=solve(site_key,solver,driver)
 
+	if(result=="fail"):
+		return "fail to solve recaptcha"
+
 	response=driver.find_element(By.XPATH,"//textarea[@class='g-recaptcha-response']")
 
 	driver.execute_script("arguments[0].style.display = 'inline-block';", response)
@@ -103,14 +110,24 @@ def attend_main(course_name,attend_pwd):
 
 	submit=driver.find_element(By.XPATH,"//button[@name='submit']")
 
+
 	submit.click()
 
 
 
 	#-------------------------------------------- 
 	# login complete
+	
+	
+	try:
+		page=driver.find_element(By.XPATH,"//div[@id='page']")
+	except:
+		driver.quit()
+		return "帳號或密碼錯誤"
+	
 
-	page=driver.find_element(By.XPATH,"//div[@id='page']")
+
+	
 
 	try:
 		course=page.find_element(By.XPATH,f"//a[contains(text(), '{course_name}')]")
