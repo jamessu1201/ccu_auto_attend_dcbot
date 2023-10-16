@@ -1,5 +1,5 @@
 secret/*
 !secret/secret.txt
-!secret/account.json
+
 __pycache__/*
 cogs/__pycache__/*
