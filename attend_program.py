@@ -58,7 +58,7 @@ def attend_main(course_name,attend_pwd):
 	if(platform.system()=='Windows'):
 		driver = webdriver.Chrome(options=options, executable_path="driver/chromedriver.exe",)
 	elif(platform.system()=='Linux'):
-		driver = webdriver.Chrome(options=options, executable_path="driver/chromedriver.exe",)
+		driver = webdriver.Chrome(options=options, executable_path="chromedriver-linux64/chromedriver",)
 	
  
 	driver.delete_all_cookies() #清cookie
