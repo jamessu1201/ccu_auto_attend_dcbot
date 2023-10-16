@@ -1,12 +1,9 @@
 # -*- coding:utf-8 -*-
 import json
 from twocaptcha import TwoCaptcha
-import os
 
-import sys
+import platform
 
-
-import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -36,17 +33,20 @@ def attend_main(course_name,attend_pwd):
 	options.add_experimental_option("excludeSwitches", ["enable-automation"])
 	options.add_experimental_option('useAutomationExtension', False)
 	options.add_experimental_option("prefs", {"profile.password_manager_enabled": False, "credentials_enable_service": False})
-	options.binary_location = "chrome-win64/chrome.exe"
+	if(platform.system()=='Windows'):
+		options.binary_location = "chrome-win64/chrome.exe"
+	elif(platform.system()=='Linux'):
+		options.binary_location = "chrome-linux64/chrome"
 
  
 	try:
-		with open("secret/two_captcha.txt",'r') as key_file:
+		with open("private/two_captcha.txt",'r') as key_file:
 			key=key_file.read()
 	except:
 		return "請去https://2captcha.com/建立api金鑰"
 
 	try:
-		with open("secret/account.json","r") as js:
+		with open("private/json/account.json","r") as js:
 			data=json.load(js)
 	except:
 		return "請建立帳號密碼"
@@ -55,8 +55,11 @@ def attend_main(course_name,attend_pwd):
 
 	solver=TwoCaptcha(apiKey=key)
 
-
-	driver = webdriver.Chrome(options=options, executable_path="driver/chromedriver.exe",)
+	if(platform.system()=='Windows'):
+		driver = webdriver.Chrome(options=options, executable_path="driver/chromedriver.exe",)
+	elif(platform.system()=='Linux'):
+		driver = webdriver.Chrome(options=options, executable_path="driver/chromedriver.exe",)
+	
  
 	driver.delete_all_cookies() #清cookie
 
