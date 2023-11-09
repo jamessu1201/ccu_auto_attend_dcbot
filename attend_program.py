@@ -29,11 +29,11 @@ def solve(key,solver,driver):
 
 def init():
 	options = Options()
-	#options.add_argument("--headless")
-	# options.add_argument("--disable-dev-shm-usage"); # overcome limited resource problems
+	options.add_argument("--headless")
+	options.add_argument("--disable-dev-shm-usage"); # overcome limited resource problems
 	options.add_argument('--window-size=1920,1080')
-	# options.add_argument("--no-sandbox")
-	# options.add_argument("--disable-gpu")
+	options.add_argument("--no-sandbox")
+	options.add_argument("--disable-gpu")
 	options.add_experimental_option("excludeSwitches", ["enable-automation"])
 	options.add_experimental_option('useAutomationExtension', False)
 	
@@ -222,9 +222,3 @@ def attend_with_link(link):
 		return "這個點名時段現在不能自己點名。"
 	else:
 		return attend(driver)
- 
- 
-	
-
-
-print(attend_with_link("https://ecourse2.ccu.edu.tw/mod/attendance/attendance.php?qrpass=v6k1lv&sessid=192332"))

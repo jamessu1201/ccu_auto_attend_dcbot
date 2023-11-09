@@ -3,6 +3,8 @@
 import os
 import sys
 
+import discord
+
 
 from discord.ext import commands
 
@@ -37,9 +39,9 @@ class Attend(commands.Cog):
     async def on_message(self,message:discord.Message):
         if message.author.id != self.bot.user.id:
             if("https://ecourse2.ccu.edu.tw/mod/attendance/attendance.php?qrpass=" in message.content):
-                await ctx.send("點名中...")
+                await message.channel.send("點名中...")
                 result=attend_with_link(message.content)
-                await ctx.send(result)
+                await message.channel.send(result)
 
 
 async def setup(bot):
