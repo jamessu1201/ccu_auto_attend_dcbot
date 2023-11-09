@@ -32,6 +32,14 @@ class Attend(commands.Cog):
         await ctx.send("點名中...")
         result=attend_main(course_name,pwd)
         await ctx.send(result)
+        
+    @commands.Cog.listener()
+    async def on_message(self,message:discord.Message):
+        if message.author.id != self.bot.user.id:
+            if("https://ecourse2.ccu.edu.tw/mod/attendance/attendance.php?qrpass=" in message.content):
+                await ctx.send("點名中...")
+                result=attend_with_link(message.content)
+                await ctx.send(result)
 
 
 async def setup(bot):
